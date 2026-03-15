@@ -1,0 +1,67 @@
+{
+  "entities": {
+    "article": {
+      "title": "Article",
+      "description": "A blog post published by the newsletter authors.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "The title of the article." },
+        "content": { "type": "string", "description": "The markdown content of the article." },
+        "imageUrl": { "type": "string", "description": "URL of the cover image." },
+        "author": { "type": "string", "description": "Name of the author (Alex or Filippo)." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the article was published." },
+        "authorUid": { "type": "string", "description": "The Firebase UID of the author." }
+      },
+      "required": ["title", "content", "author", "createdAt", "authorUid"]
+    },
+    "admin": {
+      "title": "Admin",
+      "description": "A user with administrative privileges to publish articles.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "description": "The email of the admin." },
+        "role": { "type": "string", "enum": ["admin"], "description": "The role of the user." }
+      },
+      "required": ["email", "role"]
+    },
+    "subscriber": {
+      "title": "Subscriber",
+      "description": "A newsletter subscriber.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "description": "The email of the subscriber." },
+        "subscribedAt": { "type": "string", "format": "date-time", "description": "When the user subscribed." }
+      },
+      "required": ["email", "subscribedAt"]
+    },
+    "feedback": {
+      "title": "Feedback",
+      "description": "User ideas and feedback.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "description": "The email of the user providing feedback." },
+        "message": { "type": "string", "description": "The message or idea." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the feedback was sent." }
+      },
+      "required": ["email", "message", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/articles/{articleId}": {
+      "schema": "article",
+      "description": "Collection of blog articles."
+    },
+    "/admins/{adminId}": {
+      "schema": "admin",
+      "description": "Collection of authorized administrators."
+    },
+    "/subscribers/{subscriberId}": {
+      "schema": "subscriber",
+      "description": "Collection of newsletter subscribers."
+    },
+    "/feedback/{feedbackId}": {
+      "schema": "feedback",
+      "description": "Collection of user feedback and ideas."
+    }
+  }
+}
